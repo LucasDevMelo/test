@@ -1,0 +1,23 @@
+.git
+.gitignore
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+.env
+.env.*
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Dev artifacts
+openspec/
+archive/
+Retrieval Pipeline/
+ScraperV2 JSONs/
+manual scraper/
+Help Center/
+backend/profectus_ai/eval/

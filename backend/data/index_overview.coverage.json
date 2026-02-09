@@ -1,0 +1,10 @@
+{
+  "build_timestamp": "2026-02-01T20:03:28+00:00",
+  "corpus_path": "C:\\Users\\chenj\\Documents\\.KI\\Profectus-AI\\backend\\Local_Final\\data.json",
+  "index_help_center_docs": 152,
+  "corpus_help_center_docs": 151,
+  "missing_in_corpus": [
+    "https://app.profectus.ai/pricing"
+  ],
+  "missing_in_index": []
+}

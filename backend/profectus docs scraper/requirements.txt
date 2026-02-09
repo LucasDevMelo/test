@@ -1,0 +1,8 @@
+httpx>=0.27
+selectolax>=0.3.21
+beautifulsoup4>=4.12
+sqlite-utils>=3.36
+pydantic>=2.8
+pyyaml>=6.0.2
+rich>=13.7
+python-dotenv>=1.0

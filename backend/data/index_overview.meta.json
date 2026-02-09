@@ -1,0 +1,10 @@
+{
+  "schema_version": "1.0.0",
+  "build_timestamp": "2026-02-01T20:03:28+00:00",
+  "source_counts": {
+    "Help Center": 152,
+    "YouTube": 26
+  },
+  "checksum": "a30f9c56b352283e4730155286888cecd1552ae471afb54227884da52218ecd0",
+  "total_docs": 178
+}

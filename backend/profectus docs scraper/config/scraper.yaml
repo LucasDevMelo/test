@@ -1,0 +1,27 @@
+start_urls:
+  - https://docs.profectus.ai/
+  # Blog posts
+  - https://www.profectus.ai/post/ict-fair-value-gaps-explained-how-to-trade-and-automate-fvg-strategies
+  - https://www.profectus.ai/post/how-to-build-your-first-trading-strategy-in-5-minutes
+  - https://www.profectus.ai/post/7-reasons-why-everyone-should-learn-no-code-mql5-building
+  - https://www.profectus.ai/post/5-ways-to-make-money-with-profectus-ai
+  - https://www.profectus.ai/
+  # Pricing page
+  - https://app.profectus.ai/pricing
+  # Legal/compliance docs
+  - https://www.profectus.ai/disclaimer
+  - https://www.profectus.ai/privacy-policy
+  - https://www.profectus.ai/terms-and-conditions
+
+allowed_patterns:
+  - '^https://docs\.profectus\.ai/.*$'
+  - '^https://www\.profectus\.ai/.*$'
+  - '^https://app\.profectus\.ai/pricing.*$'
+
+deny_patterns:
+  - '\\.(png|jpg|jpeg|gif|svg|pdf|zip|tar|gz|mp4|mp3)$'
+max_concurrency: 2
+rate_limit_per_host_per_sec: 1.0
+render_js: false
+user_agent: 'ProfectusDocsScraper/1.0 (+contact@example.com)'
+max_pages: 0  # 0 = unlimited

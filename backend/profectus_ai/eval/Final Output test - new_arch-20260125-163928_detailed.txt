@@ -1,0 +1,476 @@
+FILE: Final Output test - new_arch-20260125-163928.xlsx
+Columns: ['Query', 'Output', 'Category', 'Tier', 'Unnamed: 4', 'Modified Output', 'Original Comment', 'New Answer', 'Verification', 'Has Citation', 'Eval Judgement', 'Eval Notes', 'Eval Error', 'Normalized Query', 'Tool Calls', 'Indexinfo Items', 'Indexinfo Total', 'Indexinfo URLs', 'Raginfo Candidates', 'Raginfo By Source', 'Raginfo Weights', 'Read Spans', 'Evidence URLs', 'Open Source Calls', 'Event Log Path']
+====================================================================================================
+
+
+================================================================================
+Query 1: Can I use Profectus without MetaTrader 5?
+Category: Platform Basics, Integration and Data | Tier: T1 - Simple
+--------------------------------------------------------------------------------
+Judgement: worse
+Notes: The new answer omits a crucial piece of information present in the baseline: that users *can* build strategies in a browser without MetaTrader 5, even though they cannot back-test or run them. The query 'Can I use Profectus without MetaTrader 5?' encompasses all aspects of using the platform, including strategy building. The baseline answer accurately distinguishes between these phases, providing a more complete and nuanced answer. While the new answer adds good explanatory detail about *why* MT5 is needed (compilation, EX5 format) and its benefits, it sacrifices completeness regarding the initial query.
+--------------------------------------------------------------------------------
+Tool Calls: {"adk_indexinfo": 1, "adk_raginfo_dual": 1, "adk_read_spans": 1}
+Indexinfo Items: 10
+Raginfo Candidates: 10
+By Source: {"Help Center": 9, "YouTube": 1}
+Read Spans: 2.0
+Evidence URLs: https://docs.profectus.ai/en/articles/12546209-metatrader-4-vs-metatrader-5-what-s-the-difference | https://docs.profectus.ai/en/articles/12889858-how-to-run-your-profectus-trading-bot-in-metatrader-5-mt5
+--------------------------------------------------------------------------------
+Output:
+No, you cannot fully use Profectus without MetaTrader 5.
+
+While you can build strategies in [Profectus.AI](http://profectus.ai/) using a web browser on macOS, iOS, or Windows without MetaTrader 5, you will need MetaTrader 5 to backtest or run those strategies (https://docs.profectus.ai/en/articles/11485038-can-i-use-profectus-ai-on-my-device, https://docs.profectus.ai/en/articles/11484551-what-is-profectus-ai). [Profectus.AI](http://profectus.ai/) is designed to export trading bots as native MQL5 files specifically for MetaTrader 5 to facilitate testing and live execution (https://docs.profectus.ai/en/articles/11484551-what-is-profectus-ai, https://docs.profectus.ai/en/articles/12546209-metatrader-4-vs-metatrader-5-what-s-the-difference).
+
+================================================================================
+Query 2: What does the “condition” block do?
+Category: Block Logic/Building Block | Tier: T2 - Contextual
+--------------------------------------------------------------------------------
+Judgement: better
+Notes: The new answer is significantly better because it directly addresses the reviewer's comment by clarifying that what might be colloquially referred to as a 'condition block' is formally known as the 'Trade Rule' block in Profectus.AI. The baseline answer failed to incorporate this crucial feedback and continued to refer to it as a 'condition' block without this important distinction. Additionally, the new answer provides a more detailed explanation of its function and the types of values used for comparison, enhancing its overall helpfulness and accuracy.
+--------------------------------------------------------------------------------
+Tool Calls: {"adk_indexinfo": 1, "adk_raginfo_dual": 1, "adk_read_spans": 1}
+Indexinfo Items: 10
+Raginfo Candidates: 10
+By Source: {"Help Center": 6, "YouTube": 4}
+Read Spans: 2.0
+Evidence URLs: https://docs.profectus.ai/en/articles/10856357-trade-rule-block-an-introduction | https://www.youtube.com/watch?v=WMti7ShTXUs&t=17
+--------------------------------------------------------------------------------
+Output:
+A "condition" block checks whether a specific condition is true by comparing values. If the condition is met (true), it follows a designated "true" path, allowing the connected block to run. If the condition is not met (false), it follows a "no" path or stops execution [https://docs.profectus.ai/en/articles/10856357-trade-rule-block-an-introduction].
+
+For example:
+
+- The **Trade Rule block** checks a condition by comparing one value against another, forming the basis for most trading logic [https://docs.profectus.ai/en/articles/10856357-trade-rule-block-an-introduction].
+- The **Count Trades block** sets a condition to control execution based on limits for open or pending trades. If the condition is met, it follows the "true" path; otherwise, it stops execution [https://docs.profectus.ai/en/articles/10856374-count-trades].
+
+================================================================================
+Query 3: Where can I find my trading bots dashboard?
+Category: Platform Basics | Tier: T2 - Contextual
+--------------------------------------------------------------------------------
+Judgement: worse
+Notes: The New Answer is a regression from the Baseline. The Baseline Answer correctly identifies MetaTrader 5's "Journal" tab within the Toolbox or Strategy Tester as the place to monitor 'your trading bots' activity and performance,' which is a direct answer to finding a 'dashboard' for live or backtested bots. The New Answer, while listing MT5, specifies that 'your bot will appear under Expert Advisors in the Navigator window' and mentions 'Strategy Tester' for backtests. It omits the crucial 'Journal' tab for monitoring live activity, which is a key component of a 'dashboard' for running bots. The inclusion of 'Trading Bot Portfolio' and 'Trading Bot Library' in the New Answer, while potentially useful, still leans towards general template collections rather than a dashboard for 'my' *active* bots, and doesn't improve on the precision for live monitoring provided by the Baseline.
+--------------------------------------------------------------------------------
+Tool Calls: {"adk_raginfo_dual": 1, "adk_indexinfo": 1, "adk_read_spans": 1}
+Indexinfo Items: 10
+Raginfo Candidates: 10
+By Source: {"Help Center": 10, "YouTube": 0}
+Read Spans: 3.0
+Evidence URLs: https://docs.profectus.ai/en/articles/12889858-how-to-run-your-profectus-trading-bot-in-metatrader-5-mt5 | https://docs.profectus.ai/en/collections/14647793-level-2-the-trading-bot-library | https://docs.profectus.ai/en/collections/15895948-trading-bot-portfolio
+--------------------------------------------------------------------------------
+Output:
+You can find a collection of bot templates and strategies, including full trading bots, price action entries, trade management styles, and full portfolios, in the Trading Bot Library of Profectus.AI. This serves as a starting point for exploring and experimenting with automated strategies [https://docs.profectus.ai/en/articles/11893987-trading-bot-library-of-profectus-ai].
+
+================================================================================
+Query 4: How can I connect two blocks with AND logic?
+Category: Block Logic/Building Block | Tier: T2 - Contextual
+--------------------------------------------------------------------------------
+Judgement: worse
+Notes: The reviewer specifically requested a simpler explanation that details how Profectus works like a decision tree with true/false connections, mentioning the 'left dot is true, and the right dot means false.' The New Answer completely omits this fundamental explanation, which was the primary feedback point. Instead, it adds a second, more complex method (using 0/1 variables), moving further away from the reviewer's request for a 'simple answer' and a foundational understanding of block connections. Therefore, it regresses on the spirit and specific content requested by the reviewer's comment.
+--------------------------------------------------------------------------------
+Tool Calls: {"adk_raginfo_dual": 1, "adk_indexinfo": 1, "adk_read_spans": 1}
+Indexinfo Items: 10
+Raginfo Candidates: 10
+By Source: {"Help Center": 6, "YouTube": 4}
+Read Spans: 4.0
+Evidence URLs: https://docs.profectus.ai/en/articles/10856357-trade-rule-block-an-introduction | https://docs.profectus.ai/en/articles/11105189-the-core-logic-of-building-bots-on-profectus-ai | https://docs.profectus.ai/en/articles/12720034-how-to-recreate-any-indicator-or-custom-logic-with-variables | https://docs.profectus.ai/en/articles/12738067-how-to-controle-parts-of-your-bot-by-using-variables
+--------------------------------------------------------------------------------
+Output:
+To connect two blocks with AND logic, you should chain them sequentially. This means that for the logic to proceed, each preceding block's condition must evaluate as true.
+
+Here's how it works:
+
+1. Use a "Trade Rule" block to define your first condition. If this rule is true, the connected block will run; if it's false, the "no" path will run, preventing the subsequent blocks from executing and effectively acting as an "AND" gate for the entire sequence [https://docs.profectus.ai/en/articles/10856357-trade-rule-block-an-introduction].
+2. Connect the output of the first "Trade Rule" block (its "yes" path) to your second "Trade Rule" block, which defines the second condition.
+3. Continue this pattern for any additional conditions you need.
+
+For example, to trigger an action only if two specific conditions are met, such as "Candle ID 1 must be bullish" AND "Candle ID 2 must be bearish," you would connect these conditions one after the other. If the first condition passes, the logic moves to the second. If the second condition also passes, then the final action (e.g., a "Buy Now" block) is triggered [https://docs.profectus.ai/en/articles/12310817-how-to-debug-your-trading-bot].
+
+This sequential connection of "Trade Rule" blocks effectively implements AND logic, as all conditions in the chain must be true for the final action to be executed [https://youtu.be/5l8vOYvo1tE].
+
+================================================================================
+Query 5: What’s a stop-loss order?
+Category: Strategy concepts | Tier: T2 - Contextual
+--------------------------------------------------------------------------------
+Judgement: better
+Notes: The new answer significantly improves upon the baseline answer by providing a much more comprehensive and detailed explanation of a stop-loss order. While the reviewer comment mentioned the distinction between a stop-loss and a stop-limit order, the primary query is 'What's a stop-loss order?'. The new answer addresses this query thoroughly by:
+
+1.  **Providing a clear and concise definition:** 'A stop-loss order is a pre-defined level or price in a trading system that automatically closes a trade to limit potential losses.'
+2.  **Elaborating on different ways to define a stop-loss:** It lists practical methods like Fixed Pips, Percentage of Price, Percentage of Take Profit, and Custom Price Level, which are highly relevant to trading systems.
+3.  **Offering practical advice:** It includes recommendations for defining stop losses, testing them, and advice for beginners.
+4.  **Improving source integration:** The sources are clearly cited and relevant to the points made in the answer.
+
+The original reviewer comment stated the baseline was 'Incorrect. Below the correct explanation.' While the reviewer also provided context about stop-limit orders, the core issue was the perceived inadequacy of the stop-loss explanation itself. The new answer provides a substantially more 'correct' and complete explanation for a stop-loss order, directly addressing the underlying need for a better explanation, even if it doesn't introduce the stop-limit concept (which is arguably out of scope for a direct query about 'what is a stop-loss'). The added detail and practical guidance make this answer far superior and more helpful than the baseline.
+--------------------------------------------------------------------------------
+Tool Calls: {"adk_raginfo_dual": 1, "adk_indexinfo": 1, "adk_read_spans": 1}
+Indexinfo Items: 10
+Raginfo Candidates: 10
+By Source: {"Help Center": 6, "YouTube": 4}
+Read Spans: 2.0
+Evidence URLs: https://docs.profectus.ai/en/articles/10856390-buy-now-sell-now-block | https://docs.profectus.ai/en/articles/10856399-buy-sell-pending-order-block
+--------------------------------------------------------------------------------
+Output:
+A stop-loss order is a predefined instruction to limit potential losses on a trade by closing it if the price moves against the desired direction and reaches a certain threshold. It is essential for calculating risk and can be set at a specific price level or based on a maximum loss threshold to cut losses [https://docs.profectus.ai/en/articles/10856390-buy-now-sell-now-block, https://docs.profectus.ai/en/articles/10856399-buy-sell-pending-order-block, https://docs.profectus.ai/en/articles/10856624-check-profit-loss, https://docs.profectus.ai/en/articles/12546756-building-a-price-action-trading-bot-from-scratch].
+
+================================================================================
+Query 6: Should I trade gold today?og 
+Category: Out of scope | Tier: T1 - Simple
+--------------------------------------------------------------------------------
+Judgement: better
+Notes: The new answer significantly improves upon the baseline by directly addressing all points raised in the reviewer's comment.
+
+1.  **Wording:** The new answer avoids the 'odd wording' flagged by the reviewer, such as referring to the user's prompt as 'provided context' or the help center as 'these documents'. It starts directly with 'I cannot provide financial advice...' and integrates the information about strategies smoothly.
+2.  **Reply to the question & Tone:** The new answer adopts the desired tone and structure suggested by the reviewer. It provides a clear disclaimer upfront, then pivots to explain what it *can* do ('However, Profectus.AI offers tools and templates to help you build, test, and automate your own gold trading strategies.'). This is much more affirming and helpful than the baseline's more passive statement.
+3.  **Content & Helpfulness:** The new answer provides more descriptive details about the gold trading strategies, including key features, performance metrics, and customization options, rather than just listing titles and links. This makes the information more actionable and valuable for the user. It also frames the links as sources for the described information, which feels more integrated and professional.
+--------------------------------------------------------------------------------
+Tool Calls: {"adk_raginfo_dual": 1, "adk_indexinfo": 1, "adk_read_spans": 1}
+Indexinfo Items: 10
+Raginfo Candidates: 10
+By Source: {"Help Center": 4, "YouTube": 6}
+Read Spans: 2.0
+Evidence URLs: https://docs.profectus.ai/en/articles/12011181-the-gold-strategy | https://docs.profectus.ai/en/articles/12025456-gold-range-breakout-trading-bot
+--------------------------------------------------------------------------------
+Output:
+The provided context describes various automated gold trading strategies (bots) built using [Profectus.AI](http://profectus.ai/), such as the 'Gold Strategy' daily inside-bar breakout bot, the 'Gold Range Breakout' bot, and the 'Inside Bar Breakout' strategy, which all trade XAUUSD. These documents explain how to set up and customize these bots, their underlying logic, and historical performance data like returns and drawdowns.
+
+However, the context does not offer real-time trading advice or specific recommendations on whether you should trade gold today. The information focuses on tools and strategies for automated trading, rather than providing daily trading signals or predictions.
+
+For more details on these strategies, you can refer to:
+
+- The 'Gold Strategy' Daily Gold breakout bot: https://docs.profectus.ai/en/articles/12011181-the-gold-strategy
+- The 'Gold Range Breakout' Trading Bot: https://docs.profectus.ai/en/articles/12025456-gold-range-breakout-trading-bot
+- The 'Inside Bar Breakout' Strategy for gold: https://docs.profectus.ai/en/articles/12292602-inside-bar-breakout-strategy
+- YouTube videos explaining the gold breakout bot: https://youtu.be/5l8vOYvo1tE, https://youtu.be/dzFt-1ix7-Q
+
+================================================================================
+Query 7: What does “One-Click Export to MetaTrader” mean?
+Category: Platform Basics, Integration and Data | Tier: T1 - Simple
+--------------------------------------------------------------------------------
+Judgement: better
+Notes: The new answer improves upon the baseline by removing the specific mention of '.mq5 file' when describing the export. The reviewer's comment implied that '.ex5' is the primary export for instant running, suggesting that '.mq5' might be misleading in the context of 'One-Click Export to MetaTrader' if it still requires compilation. While the new answer still indicates that the downloaded file needs to be compiled, it avoids the specific '.mq5' designation, thus being more general and potentially more accurate if the exact file type is variable or if the baseline's `.mq5` claim was an oversimplification. This change addresses the spirit of the reviewer's comment by avoiding a potentially contentious detail, without regressing on the overall explanation of the process.
+--------------------------------------------------------------------------------
+Tool Calls: {"adk_indexinfo": 1, "adk_raginfo_dual": 1, "adk_read_spans": 1}
+Indexinfo Items: 10
+Raginfo Candidates: 10
+By Source: {"Help Center": 9, "YouTube": 1}
+Read Spans: 1.0
+Evidence URLs: https://docs.profectus.ai/en/articles/12292602-inside-bar-breakout-strategy
+--------------------------------------------------------------------------------
+Output:
+"One-Click Export to MetaTrader" means that you can instantly export a trading bot, designed using a no-code platform like [Profectus.ai](http://profectus.ai/), as a native MQL5 file with just one click. This file is then ready to be backtested or run live in MetaTrader 5 (https://docs.profectus.ai/en/articles/11484551-what-is-profectus-ai).
+
+This capability allows traders to create automated bots without needing to code in MQL5, which is typically required for MetaTrader 5 Expert Advisors. After exporting, the .mq5 file can be downloaded, opened in Metaeditor, compiled, and then used within the MetaTrader 5 terminal (https://docs.profectus.ai/en/articles/11515233-how-to-run-a-trading-bot-in-metatrader-5-windows, https://docs.profectus.ai/en/articles/12305269-partial-profit-management).
+
+================================================================================
+Query 8: How can I set up an ATR-based stop loss, e.g. ATR * 2?
+Category: Advanced usage | Tier: T3 - Ambigous
+--------------------------------------------------------------------------------
+Judgement: better
+Notes: The reviewer comment on the Original Answer stated, 'FALSE (step 3) there is no adjust option in the stop loss settings of indicator.' The Baseline Answer (which is the Modified Answer) unfortunately still contains this incorrect instruction: 'Then, use the 'Adjust' feature to multiply the ATR value by 2.'
+
+The New Answer completely re-evaluates the approach. Instead of relying on a non-existent 'Adjust' option within the Trade Rule block's ATR settings, it correctly identifies that a 'Formula block' must be used to perform the multiplication (ATR * 2). This demonstrates a clear understanding of the platform's capabilities and directly addresses the factual inaccuracy pointed out by the reviewer. The new answer provides a more accurate and likely functional method for setting up an ATR-based stop loss with a multiplier.
+--------------------------------------------------------------------------------
+Tool Calls: {"adk_raginfo_dual": 1, "adk_indexinfo": 1, "adk_read_spans": 1, "adk_open_source": 1}
+Indexinfo Items: 10
+Raginfo Candidates: 10
+By Source: {"Help Center": 9, "YouTube": 1}
+Read Spans: 1.0
+Evidence URLs: https://docs.profectus.ai/en/articles/11105200-average-true-range-atr-in-the-trade-rule-block
+--------------------------------------------------------------------------------
+Output:
+To set up an ATR-based stop loss, such as ATR * 2, you can configure this within the Trade Rule block.
+
+Here's how:
+
+1. In the Trade Rule block, select "Average True Range" as your stop-loss method.
+2. Configure the ATR settings, including:
+    - **ATR Period:** The number of candles used for calculation (e.g., 14 for the last 14 candles).
+    - **Time Frame:** The chart timeframe for the ATR calculation.
+    - **Candle ID:** To specify which candle's data to use (e.g., 1 for the last closed candle).
+3. Use the "Adjust" option to modify the calculated ATR value. Here, you can multiply the ATR by 2 to set your stop loss at twice the average range (https://docs.profectus.ai/en/articles/11105200-average-true-range-atr-in-the-trade-rule-block).
+
+This method allows your stop loss to adapt to market volatility (https://docs.profectus.ai/en/articles/760bdaf4-momentum-trading-bot, https://docs.profectus.ai/en/articles/12011181-the-gold-strategy).
+
+================================================================================
+Query 9: What does “OrderSend Error 4756” mean?
+Category: Support | Tier: T2 - Contextual
+--------------------------------------------------------------------------------
+Judgement: worse
+Notes: The reviewer comment specifically asked for the system to provide a confidence level per response and tag conversations for escalation. The baseline answer already implements this by including `"confidence": 0.3` and `"escalate": true` with an `escalation_reason`. The new answer, however, removes these structured fields and instead asks the user directly if they'd like escalation. This constitutes a regression on the specific capability requested and demonstrated by the baseline in response to the reviewer comment.
+--------------------------------------------------------------------------------
+Tool Calls: {"adk_indexinfo": 1, "adk_raginfo_dual": 1, "adk_read_spans": 1}
+Indexinfo Items: 0
+Raginfo Candidates: 10
+By Source: {"Help Center": 10, "YouTube": 0}
+Read Spans: 1.0
+Evidence URLs: https://docs.profectus.ai/en/articles/12310817-how-to-debug-your-trading-bot
+--------------------------------------------------------------------------------
+Output:
+I'm sorry, but the provided context does not contain information about "OrderSend Error 4756." The available document on debugging trading bots lists several common errors, but this specific error code is not among them (https://docs.profectus.ai/en/articles/12310817-how-to-debug-your-trading-bot).
+
+================================================================================
+Query 10: How can I calculate custom indicator values using the Formula block?
+Category: Block Logic/Building Block, Strategy concepts | Tier: T2 - Contextual
+--------------------------------------------------------------------------------
+Judgement: better
+Notes: The new answer is better because it directly addresses the reviewer's comment regarding automating indicators. It adds a specific step, 'Use in Trade Rules (Optional)', and integrates this into the example. This provides a clear 'feasibility check' for users wanting to automate indicators, showing them how the calculated custom indicator values can be used in trading conditions. It also maintains clarity on the limitation of basic arithmetic operations and adds a useful tip about empty fields in the Formula block. While it doesn't explicitly state to 'escalate to human,' by demonstrating what *is* possible, it sets expectations and indirectly guides users regarding when their needs might exceed current basic functionalities.
+--------------------------------------------------------------------------------
+Tool Calls: {"adk_raginfo_dual": 1, "adk_indexinfo": 1, "adk_read_spans": 1}
+Indexinfo Items: 10
+Raginfo Candidates: 10
+By Source: {"Help Center": 10, "YouTube": 0}
+Read Spans: 4.0
+Evidence URLs: https://docs.profectus.ai/en/articles/10856442-formula | https://docs.profectus.ai/en/articles/12720034-how-to-recreate-any-indicator-or-custom-logic-with-variables
+--------------------------------------------------------------------------------
+Output:
+You can calculate custom indicator values using the Formula block by performing mathematical operations on variables, inputs, existing indicators, or trade data, and then assigning the result to a variable for further use.
+
+Here's a general approach:
+
+1. **Define Data Points**
+    - Gather necessary market data (e.g., high/low prices of a candle using Market Property blocks) or values from other indicators or inputs. Store these in variables (https://docs.profectus.ai/en/articles/12720034-how-to-recreate-any-indicator-or-custom-logic-with-variables). You can use Price Levels, Price Ranges, or Price Fractions as your data points (https://docs.profectus.ai/en/articles/12428533-understanding-price-levels-ranges-and-fractions).
+2. **Use the Formula Block**
+    - The Formula block allows you to apply basic arithmetic operations like addition, subtraction, multiplication, and division to these variables (https://docs.profectus.ai/en/articles/10856442-formula).
+    - You can combine multiple inputs or data points within a single formula (https://docs.profectus.ai/en/articles/10856442-formula).
+3. **Assign the Result**
+    - Assign the calculated value from the formula to a new variable (https://docs.profectus.ai/en/articles/10856442-formula). This variable now holds your custom indicator's value.
+
+**Example (Recreating Fibonacci Logic):**
+To calculate a Fibonacci retracement level, you would:
+
+1. **Define swing points:** Get the most recent high (`priceHigh`) and low (`priceLow`) using blocks like "Candle" or "Market Property" and store them as variables (https://docs.profectus.ai/en/articles/12720034-how-to-recreate-any-indicator-or-custom-logic-with-variables).
+2. **Calculate the range:** Add a Formula block to calculate the price range: `range = priceHigh – priceLow` (https://docs.profectus.ai/en/articles/12720034-how-to-recreate-any-indicator-or-custom-logic-with-variables).
+3. **Apply a ratio:** Use another Formula block to multiply the range by your desired Fibonacci ratio: `fibOffset = range × 0.618` (https://docs.profectus.ai/en/articles/12720034-how-to-recreate-any-indicator-or-custom-logic-with-variables).
+4. **Compute the retracement level:** Add a third Formula block to calculate the final level: `fibLevel = priceLow + fibOffset` (https://docs.profectus.ai/en/articles/12720034-how-to-recreate-any-indicator-or-custom-logic-with-variables).
+
+The `fibLevel` variable now holds the custom Fibonacci indicator value.
+
+It's recommended to keep formulas simple to maintain efficiency (https://docs.profectus.ai/en/articles/10856442-formula).
+
+================================================================================
+Query 11: Can you debug my bot code?
+Category: nan | Tier: nan
+--------------------------------------------------------------------------------
+Judgement: better
+Notes: The new answer is significantly more comprehensive and helpful than the baseline. While the baseline provides a good starting point, the new answer expands on it by: 
+1. Explicitly stating it cannot debug the code directly, which sets appropriate expectations.
+2. Providing more detail on how to use the Journal, including for visual backtesting and identifying error markers.
+3. Adding crucial sections on 'Common Reasons a Bot Isn't Trading' (e.g., checking EA icon, Algo Trading button) and 'Common Error Messages and Quick Fixes' (e.g., Not Enough Money, Market Closed, Invalid Stops, Trade Context Busy). These detailed, actionable troubleshooting steps directly address the user's need to debug their bot code much more effectively. 
+It leverages the same source document to provide a much richer and more actionable guide, making it a clear improvement.
+--------------------------------------------------------------------------------
+Tool Calls: {"adk_raginfo_dual": 1, "adk_indexinfo": 1, "adk_open_source": 1}
+Indexinfo Items: 10
+Raginfo Candidates: 10
+By Source: {"Help Center": 9, "YouTube": 1}
+Read Spans: nan
+Evidence URLs: nan
+--------------------------------------------------------------------------------
+Output:
+nan
+
+================================================================================
+Query 12: Can Profectus trade on Binance?
+Category: nan | Tier: nan
+--------------------------------------------------------------------------------
+Judgement: better
+Notes: The new answer provides a more comprehensive explanation of how Profectus works, specifying that it's for building strategies and bots run in trading terminals like MetaTrader 5 (MT5). It also introduces the concept of using Profectus with prop firms that support Expert Advisor (EA) trading, which adds valuable context. The integrated citation to 'How to Run Your Profectus Trading Bot in MetaTrader 5 (MT5)' is highly relevant and actionable, making the answer more helpful than the baseline, which merely states the lack of Binance support and lists generic citations at the end.
+--------------------------------------------------------------------------------
+Tool Calls: {"adk_indexinfo": 1, "adk_raginfo_dual": 1, "adk_read_spans": 1}
+Indexinfo Items: 10
+Raginfo Candidates: 10
+By Source: {"Help Center": 9, "YouTube": 1}
+Read Spans: 3.0
+Evidence URLs: https://docs.profectus.ai/en/articles/11491911-can-i-use-profectus-for-prop-firm-accounts | https://docs.profectus.ai/en/articles/12310817-how-to-debug-your-trading-bot | https://docs.profectus.ai/en/articles/12889858-how-to-run-your-profectus-trading-bot-in-metatrader-5-mt5
+--------------------------------------------------------------------------------
+Output:
+nan
+
+================================================================================
+Query 13: Where can I find the step-by-step tutorials?
+Category: nan | Tier: nan
+--------------------------------------------------------------------------------
+Judgement: better
+Notes: The new answer is significantly better than the baseline. While the baseline simply lists the names of strategies for which tutorials exist, the new answer provides concrete examples of tutorials, outlines the actual steps involved in some of them, and introduces a crucial tutorial on how to run a bot in MetaTrader 5. This level of detail and actionable information makes the new answer far more helpful and comprehensive for a user looking for step-by-step tutorials. The formatting also makes it easier to read and understand.
+--------------------------------------------------------------------------------
+Tool Calls: {"adk_raginfo_dual": 1, "adk_indexinfo": 1, "adk_read_spans": 1, "adk_open_source": 1}
+Indexinfo Items: 10
+Raginfo Candidates: 10
+By Source: {"Help Center": 8, "YouTube": 2}
+Read Spans: 2.0
+Evidence URLs: https://docs.profectus.ai/en/articles/11951646-scalping-grid-trading-bot | https://docs.profectus.ai/en/articles/12190733-tweezer-top-bottom-price-action-pattern
+--------------------------------------------------------------------------------
+Output:
+nan
+
+================================================================================
+Query 14: How can I use the Formula block to calculate averages?
+Category: nan | Tier: nan
+--------------------------------------------------------------------------------
+Judgement: better
+Notes: The new answer is better for several reasons:
+1.  **Improved Formula Block Explanation**: It provides more detailed and actionable steps for using the Formula block, including crucial information about assigning results to variables and a specific caution regarding multiplication, which directly addresses how to use the Formula block effectively.
+2.  **Comprehensive Context on Averages**: While the query focuses on the 'Formula block,' the new answer also provides extensive and relevant context on how 'specific Moving Average calculations' (which are a type of average) are handled within Profectus.AI, including various methods, applied prices, time frames, and candle IDs. This gives the user a more complete picture of average calculation capabilities in the platform.
+3.  **Clear Attribution**: The new answer diligently cites its sources throughout, distinguishing between features of the general 'Formula' block and the specific 'Moving Average in the Trade Rule Block,' thereby maintaining accuracy and avoiding confusion, even when providing broader context. The baseline simply states that other blocks handle built-in indicators, whereas the new answer elaborates on what those built-in capabilities entail, without falsely attributing them to the Formula block itself.
+--------------------------------------------------------------------------------
+Tool Calls: {"adk_raginfo_dual": 1, "adk_indexinfo": 1, "adk_read_spans": 1}
+Indexinfo Items: 10
+Raginfo Candidates: 10
+By Source: {"Help Center": 10, "YouTube": 0}
+Read Spans: 3.0
+Evidence URLs: https://docs.profectus.ai/en/articles/10856442-formula | https://docs.profectus.ai/en/articles/11105206-moving-average-in-the-trade-rule-block
+--------------------------------------------------------------------------------
+Output:
+nan
+
+================================================================================
+Query 15: How do I store the low of candle 1 as a variable?
+Category: nan | Tier: nan
+--------------------------------------------------------------------------------
+Judgement: better
+Notes: The new answer is a significant improvement over the baseline. While the baseline provides a concise instruction, the new answer offers a more detailed and structured explanation. It breaks down the process into logical steps, clarifies what 'Candle ID 1' signifies with a direct citation, explains how to access the candle data, and provides context on using variables. The embedded citations within the answer text are a major plus, allowing users to easily access further information. This makes the new answer more educational, transparent, and user-friendly, without losing accuracy or directness.
+--------------------------------------------------------------------------------
+Tool Calls: {"adk_raginfo_dual": 1, "adk_indexinfo": 1, "adk_read_spans": 1}
+Indexinfo Items: 10
+Raginfo Candidates: 10
+By Source: {"Help Center": 8, "YouTube": 2}
+Read Spans: 3.0
+Evidence URLs: https://docs.profectus.ai/en/articles/10856357-trade-rule-block-an-introduction | https://docs.profectus.ai/en/articles/12011667-candle-in-the-trade-rule-block | https://docs.profectus.ai/en/articles/12012118-understanding-candle-ids-a-superpower-for-strategy-building
+--------------------------------------------------------------------------------
+Output:
+nan
+
+================================================================================
+Query 16: Is Hull Moving Average (HMA) supported in Profectus?
+Category: nan | Tier: nan
+--------------------------------------------------------------------------------
+Judgement: better
+Notes: The new answer is more comprehensive and helpful. It not only directly answers that Hull Moving Average (HMA) is not supported but also provides valuable context by listing the specific Moving Average methods (SMA, EMA, Smoothed, WMA) and other pre-built indicators (ATR, Bollinger Bands, CCI, MACD, RSI, Stochastic Oscillator) that *are* supported in Profectus.AI. This gives the user a clear understanding of available alternatives, which significantly improves user utility compared to the baseline, which only states that HMA is not supported. While the new answer refers to the relevant documentation by name rather than providing direct URLs as the baseline did, the added informational value outweighs this difference in citation format.
+--------------------------------------------------------------------------------
+Tool Calls: {"adk_indexinfo": 1, "adk_raginfo_dual": 1, "adk_open_source": 2}
+Indexinfo Items: 10
+Raginfo Candidates: 10
+By Source: {"Help Center": 10, "YouTube": 0}
+Read Spans: nan
+Evidence URLs: nan
+--------------------------------------------------------------------------------
+Output:
+nan
+
+================================================================================
+Query 17: How do I export my EA to MetaTrader 5?
+Category: nan | Tier: nan
+--------------------------------------------------------------------------------
+Judgement: better
+Notes: The new answer provides significantly more detailed and helpful instructions for Mac users on how to locate the MetaTrader 5 data folder and the 'Experts' folder, which is a common point of confusion. The baseline answer merely states to 'copy the compiled EA files into the `MQL5/Experts` folder' for Mac users, without explaining *how* to find that folder. The new answer's step-by-step guide for Mac users addresses this critical gap. While the new answer is slightly less specific about the compilation tool (MetaEditor) and the initial file type (`.mq5`) compared to the baseline, and includes a slightly off-topic point about creating a demo account, these minor regressions are outweighed by the substantial improvement in usability for Mac users, who often struggle with MT5 file management.
+--------------------------------------------------------------------------------
+Tool Calls: {"adk_indexinfo": 1, "adk_raginfo_dual": 1, "adk_read_spans": 1}
+Indexinfo Items: 10
+Raginfo Candidates: 10
+By Source: {"Help Center": 7, "YouTube": 3}
+Read Spans: 3.0
+Evidence URLs: https://docs.profectus.ai/en/articles/12097257-1-2-metatrader-5-mt5-setup-on-mac | https://docs.profectus.ai/en/articles/12097257-metatrader-5-mt5-setup-on-mac | https://www.youtube.com/watch?v=ZrMNPG_1jDo&t=0
+--------------------------------------------------------------------------------
+Output:
+nan
+
+================================================================================
+Query 18: Can I export directly to MQL5 Marketplace?
+Category: nan | Tier: nan
+--------------------------------------------------------------------------------
+Judgement: better
+Notes: The new answer directly addresses the user's question, providing a 'yes' answer with conditions (Pro Plan) and explaining the mechanism (full source file .mq5 with licensing and marketplace options). It also differentiates for Free Plan users and provides a highly relevant new citation that seems to contain the specific information needed to answer the query accurately. The baseline answer stated that direct export functionality to the MQL5 Marketplace was 'not mentioned in the provided context', implying a lack of information. The new answer, by providing a definitive answer with a specific citation, indicates that new and relevant information was found, making it significantly more helpful and accurate.
+--------------------------------------------------------------------------------
+Tool Calls: {"adk_indexinfo": 1, "adk_raginfo_dual": 1, "adk_read_spans": 1}
+Indexinfo Items: 10
+Raginfo Candidates: 10
+By Source: {"Help Center": 8, "YouTube": 2}
+Read Spans: 1.0
+Evidence URLs: https://docs.profectus.ai/en/articles/12415624-can-i-sell-the-bots-i-create-on-profectus-ai
+--------------------------------------------------------------------------------
+Output:
+nan
+
+================================================================================
+Query 19: What does “Pro logic blocks” mean?
+Category: nan | Tier: nan
+--------------------------------------------------------------------------------
+Judgement: better
+Notes: The new answer is significantly better than the baseline and directly addresses the reviewer's comment. The reviewer criticized the original answer for being 'greatly generic and not explaining 'pro features''. The new answer specifically focuses on 'variables' as the core of 'Pro logic blocks' and elaborates on their advanced capabilities: storing and updating dynamic data, assigning/modifying/calculating values, designing custom logic, and controlling strategy settings dynamically. This provides the concrete examples and explanations of 'pro features' that the reviewer was looking for, aligning well with the examples given in the reviewer's exemplary response (Variables, Modify Variables, Formula). The new citations are also more targeted to these specific advanced features, improving on the less fitting citations of the baseline.
+--------------------------------------------------------------------------------
+Tool Calls: {"adk_raginfo_dual": 1, "adk_indexinfo": 1, "adk_read_spans": 1}
+Indexinfo Items: 10
+Raginfo Candidates: 10
+By Source: {"Help Center": 9, "YouTube": 1}
+Read Spans: 4.0
+Evidence URLs: https://docs.profectus.ai/en/articles/10856446-modify-variables | https://docs.profectus.ai/en/articles/10856506-inputs-variables-overview | https://docs.profectus.ai/en/articles/12720034-how-to-recreate-any-indicator-or-custom-logic-with-variables | https://docs.profectus.ai/en/collections/16437960-variable-section-in-builder
+--------------------------------------------------------------------------------
+Output:
+nan
+
+================================================================================
+Query 20: Can you recommend the best strategy for stocks?
+Category: nan | Tier: nan
+--------------------------------------------------------------------------------
+Judgement: better
+Notes: The new answer significantly improves upon the baseline by directly addressing the reviewer's comments. It incorporates a more 'sales-like aspect' by actively encouraging the user to utilize Profectus AI's capabilities for developing strategies. It provides detailed information on how Profectus AI assists in building, testing, and managing strategies, including core components, the importance of testing, and available templates. This goes beyond the general description in the baseline. Furthermore, it removes the 'odd' phrasing 'The context does not recommend' and replaces it with a more direct and natural disclaimer, 'I cannot recommend a specific "best" strategy for stocks,' while still maintaining necessary guardrails. The concluding paragraph effectively 'hypes' the user about the potential benefits of using Profectus AI. Overall, the new answer is much more engaging, informative, and aligned with the desired tone.
+--------------------------------------------------------------------------------
+Tool Calls: {"adk_raginfo_dual": 1, "adk_indexinfo": 1, "adk_open_source": 1, "adk_read_spans": 1}
+Indexinfo Items: 10
+Raginfo Candidates: 10
+By Source: {"Help Center": 3, "YouTube": 7}
+Read Spans: 6.0
+Evidence URLs: https://docs.profectus.ai/en/articles/11105216-breakout-strategy | https://docs.profectus.ai/en/articles/11105220-candle-high-low-management | https://www.profectus.ai/post/5-ways-to-make-money-with-profectus-ai | https://www.youtube.com/watch?v=0fDEufdbmfw&t=1758 | https://www.youtube.com/watch?v=1L-R6KstmPQ&t=374 | https://www.youtube.com/watch?v=WMti7ShTXUs
+--------------------------------------------------------------------------------
+Output:
+nan
+
+================================================================================
+Query 21: Why am I losing money?
+Category: nan | Tier: nan
+--------------------------------------------------------------------------------
+Judgement: better
+Notes: The new answer is significantly more comprehensive and helpful than the baseline. It provides a structured breakdown of potential reasons for losing money, categorizing them into strategic problems, execution/emotional trading, and trading bot-specific issues. Each point is elaborated with a brief explanation and a relevant citation (including YouTube for general trading concepts and Profectus.AI Help Center for bot-specific debugging). The baseline answer is a concise list but lacks the depth, explanation, and structured detail found in the new answer. The new answer provides a much richer and more actionable response to the user's query.
+--------------------------------------------------------------------------------
+Tool Calls: {"adk_raginfo_dual": 1, "adk_indexinfo": 1, "adk_read_spans": 1}
+Indexinfo Items: 10
+Raginfo Candidates: 10
+By Source: {"Help Center": 2, "YouTube": 8}
+Read Spans: 6.0
+Evidence URLs: https://docs.profectus.ai/en/articles/12310817-how-to-debug-your-trading-bot | https://www.youtube.com/watch?v=0fDEufdbmfw&t=1004 | https://www.youtube.com/watch?v=0fDEufdbmfw&t=753 | https://www.youtube.com/watch?v=0fDEufdbmfw&t=879 | https://www.youtube.com/watch?v=1L-R6KstmPQ&t=374 | https://www.youtube.com/watch?v=1L-R6KstmPQ&t=498
+--------------------------------------------------------------------------------
+Output:
+nan
+
+================================================================================
+Query 22: Can I get paid for reporting bugs?
+Category: nan | Tier: nan
+--------------------------------------------------------------------------------
+Judgement: better
+Notes: The new answer significantly improves upon the baseline by directly addressing the reviewer's feedback. It avoids the robotic phrasing 'Based on the provided context' and instead states clearly 'I couldn't find specific information about that in our documentation.' This is more affirming and natural. Furthermore, it incorporates the suggestion to offer escalation by asking 'Would you like me to escalate this to our support team?', which provides a clear path forward for the user when information is not found. The baseline, while confident within its context, did not offer this user-friendly escalation path, which the reviewer implicitly suggested for cases of 'uncertainty' (or lack of information from the system's perspective).
+--------------------------------------------------------------------------------
+Tool Calls: {"adk_indexinfo": 1, "adk_raginfo_dual": 1}
+Indexinfo Items: 10
+Raginfo Candidates: 10
+By Source: {"Help Center": 10, "YouTube": 0}
+Read Spans: nan
+Evidence URLs: nan
+--------------------------------------------------------------------------------
+Output:
+nan
+
+================================================================================
+Query 23: Can we have a notification system for trades or messages?
+Category: nan | Tier: nan
+--------------------------------------------------------------------------------
+Judgement: better
+Notes: The new answer is better because it directly addresses the reviewer's comment regarding the inaccuracy of the baseline answer. The reviewer explicitly stated that the capability mentioned in the baseline ('notification system' via trading bots) is 'Incorrect' and 'Profectus is also currently not supporting that,' and that the linked article does not mention it. The new answer correctly states, 'I couldn't find specific information about a notification system for trades or messages in our documentation,' which aligns with the reviewer's feedback. It also offers to escalate to the support team, providing a helpful path forward instead of providing incorrect information with high confidence, as the baseline did.
+--------------------------------------------------------------------------------
+Tool Calls: {"adk_raginfo_dual": 1, "adk_indexinfo": 1}
+Indexinfo Items: 10
+Raginfo Candidates: 10
+By Source: {"Help Center": 9, "YouTube": 1}
+Read Spans: nan
+Evidence URLs: nan
+--------------------------------------------------------------------------------
+Output:
+nan

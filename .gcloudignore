@@ -1,0 +1,6 @@
+#!include:.gitignore
+
+# Ensure index overview artifacts are included in Cloud Build
+!backend/data/index_overview.jsonl
+!backend/data/index_overview.meta.json
+!backend/data/index_overview.coverage.json

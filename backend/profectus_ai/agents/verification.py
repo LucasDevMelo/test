@@ -32,18 +32,10 @@ class VerificationResult:
 def verify_evidence(
     spans: List[EvidenceSpan],
     query: str = "",
+    answer: str = "", 
     confidence_threshold: float = 0.4,
 ) -> VerificationResult:
-    """Verify evidence coverage and compute confidence score.
-
-    Args:
-        spans: List of evidence spans retrieved.
-        query: The original query (used for relevance scoring).
-        confidence_threshold: Minimum confidence to pass verification.
-
-    Returns:
-        VerificationResult with ok status and confidence score.
-    """
+    """Verify evidence coverage and compute confidence score."""
     if not spans:
         return VerificationResult(
             ok=False,
@@ -52,31 +44,33 @@ def verify_evidence(
             coverage_details={"span_count": 0},
         )
 
-    # Compute component scores
-    span_score = _compute_span_score(spans)
+    density_score = _compute_span_score(spans)
+    
     diversity_score = _compute_diversity_score(spans)
+    
     relevance_score = _compute_relevance_score(spans, query) if query else 0.5
+    
+    faithfulness_score = _compute_faithfulness_score(answer, spans) if answer else 1.0
 
-    # Weighted combination
     confidence = (
-        span_score * 0.3 +
-        diversity_score * 0.3 +
-        relevance_score * 0.4
+        relevance_score * 0.45 +
+        faithfulness_score * 0.30 +
+        diversity_score * 0.15 +
+        density_score * 0.10
     )
 
-    # Clamp to [0, 1]
     confidence = max(0.0, min(1.0, confidence))
 
-    # Determine if verification passes
     ok = confidence >= confidence_threshold
     reason = None if ok else "low_confidence"
 
     coverage_details = {
         "span_count": len(spans),
         "sources": list(_get_sources(spans)),
-        "span_score": round(span_score, 3),
-        "diversity_score": round(diversity_score, 3),
-        "relevance_score": round(relevance_score, 3),
+        "relevance_score": round(relevance_score, 3),     # 45%
+        "faithfulness_score": round(faithfulness_score, 3), # 30%
+        "diversity_score": round(diversity_score, 3),     # 15%
+        "density_score": round(density_score, 3),         # 10%
         "confidence_threshold": confidence_threshold,
     }
 
@@ -102,8 +96,23 @@ def _compute_diversity_score(spans: List[EvidenceSpan]) -> float:
 
 
 def _get_sources(spans: List[EvidenceSpan]) -> Set[str]:
-    """Extract unique sources from spans."""
-    return {s.provenance.source for s in spans if s.provenance}
+    """Extract unique sources from spans (Handles objects and dicts)."""
+    sources = set()
+    for s in spans:
+        if not s.provenance:
+            continue
+            
+        # Tenta acessar como objeto (.source)
+        if hasattr(s.provenance, "source"):
+            sources.add(s.provenance.source)
+        # Tenta acessar como dicionário (['source'])
+        elif isinstance(s.provenance, dict) and "source" in s.provenance:
+            sources.add(s.provenance["source"])
+        # Fallback
+        else:
+            sources.add("Unknown")
+            
+    return sources
 
 
 def _compute_relevance_score(spans: List[EvidenceSpan], query: str) -> float:
@@ -181,3 +190,19 @@ def extract_claims(answer: str) -> List[str]:
         claims.append(sentence)
 
     return claims
+
+
+def _compute_faithfulness_score(answer: str, spans: List[EvidenceSpan]) -> float:
+    """It calculates whether the words in the answer exist in the evidence (Fidelity)."""
+    if not answer or not spans:
+        return 0.5
+    
+    answer_tokens = set(_tokenize(answer))
+    if not answer_tokens:
+        return 1.0
+    evidence_text = " ".join(str(s.text) for s in spans if s.text)    
+    evidence_tokens = set(_tokenize(evidence_text))
+    
+    supported_tokens = sum(1 for t in answer_tokens if t in evidence_tokens)
+    
+    return supported_tokens / len(answer_tokens)

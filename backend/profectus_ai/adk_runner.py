@@ -20,6 +20,9 @@ from profectus_ai.adk.orchestrator import root_agent
 from profectus_ai.adk.classifier import QueryType, classify_query
 from profectus_ai.adk.tool_wrappers import rag_mode_override
 
+from profectus_ai.agents.verification import verify_evidence
+from profectus_ai.models import EvidenceSpan
+
 
 def _require_api_key() -> None:
     if not os.environ.get("GOOGLE_API_KEY"):
@@ -464,6 +467,9 @@ async def run_query(
     answer_buffer = ""  # Accumulated answer content (inside <answer> tags)
     in_answer_tag = False  # Track if we're currently inside <answer> tags
 
+    collected_spans: list[EvidenceSpan] = []
+    
+
     if print_events:
         print(f"[step] Processing query: {query}")
     try:
@@ -536,9 +542,47 @@ async def run_query(
 
                     elif part.get("type") == "function_response":
                         name = part.get("name")
+
+                        response_payload = part.get("response") or {}
+                        
+                        if name == "adk_read_spans":
+                            raw_spans = response_payload.get("spans", [])
+                            for s in raw_spans:
+                                try:
+                                    collected_spans.append(EvidenceSpan(**s))
+                                except Exception as e:
+                                    print(f"[NOTICE]Error converting EvidenceSpan (read_spans): {e}")
+
+                        elif name in {"adk_raginfo", "adk_raginfo_dual"}:
+                            candidates = response_payload.get("candidates", [])
+                            
+                            if not candidates:
+                                by_source = response_payload.get("by_source", {})
+                                for src_list in by_source.values():
+                                    if isinstance(src_list, list):
+                                        candidates.extend(src_list)
+
+                            for c in candidates:
+                                try:
+                                    
+                                    text_content = c.get("content") or c.get("snippet") or ""
+                                    if not text_content: 
+                                        continue 
+
+                                    span_data = {
+                                        "span_id": str(c.get("chunk_id") or "search_snippet"),
+                                        "text": text_content,
+                                        "provenance": {"source": c.get("source", "Unknown Source")},
+                                        "score": float(c.get("score", 1.0))
+                                    }
+                                    collected_spans.append(EvidenceSpan(**span_data))
+                                except Exception as e:
+                                    print(f"[NOTICE] Failed to convert RAG candidate: {e}")
+
                         if timing_tracker and name in tool_markers:
                             timing_tracker.record_step(f"tool_{name}", tool_markers[name])
                             del tool_markers[name]
+                        
                         if name in {"adk_read_spans", "adk_open_source"}:
                             evidence_ready = True
 
@@ -607,7 +651,8 @@ async def run_query(
                         if part.get("type") == "text":
                             final_text = part.get("text") or final_text
                             break
-                    verdict, confidence = _parse_verdict(final_text)
+                    verdict, _ = _parse_verdict(final_text)
+                    
                     # Extract the actual answer from the verdict output
                     extracted_answer = _extract_answer_from_verdict(final_text)
                     if extracted_answer and extracted_answer != final_text:
@@ -646,12 +691,26 @@ async def run_query(
                 if candidate.strip():
                     final_text = candidate
                     break
-    # Emit the final answer via stream callback (ensures frontend always gets the answer)
-    # Use answer_buffer if we have it (extracted content), otherwise use final_text
+    
     if stream_callback and final_text and final_text.strip():
         stream_text = answer_buffer if answer_buffer and answer_buffer.strip() else final_text
-        # Always emit, even if we streamed before (acts as confirmation/finalization)
+        
         await _emit_stream(stream_callback, text=stream_text.strip(), state=stream_state)
+    if final_text and not skip_trivial:
+        verification_result = verify_evidence(
+            spans=collected_spans,
+            query=query,
+            answer=final_text, 
+            confidence_threshold=0.5 
+        )
+
+        confidence = verification_result.confidence
+
+        if not verification_result.ok:
+            verdict = "ESCALATE"
+            print(f"[Trust System]Scaled by low confidence ({confidence:.2f}). Reason: {verification_result.reason}")
+        else:
+            verdict = "VERIFIED"
     return final_text, verdict, confidence
 
 
